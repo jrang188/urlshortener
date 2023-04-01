@@ -11,6 +11,7 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "dependencies": {
+    "@prisma/client": "^4.12.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -35,6 +36,7 @@
     "eslint-plugin-react": "^7.32.2",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.7",
+    "prisma": "^4.12.0",
     "typescript": "^5.0.3"
   }
 }
