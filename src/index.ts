@@ -4,6 +4,8 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
+import isValidUrl from './utils';
+import { isGeneratorFunction } from 'util/types';
 
 dotenv.config();
 const app = express();
@@ -27,19 +29,31 @@ app.get('/api/hello', (req: Request, res: Response) => {
 
 app.post('/api/shorturl', async (req: Request, res: Response) => {
   const originalURL = req.body.url;
-  console.log(originalURL);
-  const url = await prisma.url.create({
-    data: {
+  if (!isValidUrl(originalURL)) {
+    return res.json({ error: 'invalid url' });
+  }
+
+  const existingUrl = await prisma.url.findUnique({
+    where: {
       originalURL,
     },
   });
-  res.json({ original_url: url.originalURL, short_url: url.id });
+
+  if (!existingUrl) {
+    const url = await prisma.url.create({
+      data: {
+        originalURL,
+      },
+    });
+    return res.json({ original_url: url.originalURL, short_url: url.id });
+  }
+  return res.json({ original_url: originalURL, short_url: existingUrl.id });
 });
 
 app.get('/api/shorturl/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const url = await prisma.url.findUnique({
-    where: {id: parseInt(id, 10)},
+    where: { id: parseInt(id, 10) },
   });
   res.redirect(url.originalURL);
 });
