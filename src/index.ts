@@ -4,8 +4,8 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { PrismaClient } from '@prisma/client';
+// eslint-disable-next-line import/extensions
 import isValidUrl from './utils';
-import { isGeneratorFunction } from 'util/types';
 
 dotenv.config();
 const app = express();
@@ -47,7 +47,7 @@ app.post('/api/shorturl', async (req: Request, res: Response) => {
     });
     return res.json({ original_url: url.originalURL, short_url: url.id });
   }
-  res.json({ original_url: originalURL, short_url: existingUrl.id });
+  return res.json({ original_url: originalURL, short_url: existingUrl.id });
 });
 
 app.get('/api/shorturl/:id', async (req: Request, res: Response) => {
@@ -61,7 +61,7 @@ app.get('/api/shorturl/:id', async (req: Request, res: Response) => {
     return res.status(404).json({ error: 'URL not found' });
   }
 
-  res.redirect(url.originalURL);
+  return res.redirect(url.originalURL);
 });
 
 app.listen(port, () => {
