@@ -47,7 +47,7 @@ app.post('/api/shorturl', async (req: Request, res: Response) => {
     });
     return res.json({ original_url: url.originalURL, short_url: url.id });
   }
-  return res.json({ original_url: originalURL, short_url: existingUrl.id });
+  res.json({ original_url: originalURL, short_url: existingUrl.id });
 });
 
 app.get('/api/shorturl/:id', async (req: Request, res: Response) => {
@@ -55,6 +55,12 @@ app.get('/api/shorturl/:id', async (req: Request, res: Response) => {
   const url = await prisma.url.findUnique({
     where: { id: parseInt(id, 10) },
   });
+
+  if (!url) {
+    // If the URL does not exist, return an error response
+    return res.status(404).json({ error: 'URL not found' });
+  }
+
   res.redirect(url.originalURL);
 });
 
