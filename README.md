@@ -1,3 +1,3 @@
 # URL Shortener Microservice
 
-This is the boilerplate code for the URL Shortener Microservice project. Instructions for building your project can be found at https://www.freecodecamp.org/learn/back-end-development-and-apis/back-end-development-and-apis-projects/url-shortener-microservice.
+This code is part of the FreeCodeCamp Back End Development and APIs certification project. However, there are signifcant differences in terms of tech stack. Rather than using JavaScript, Mongoose, and MongoDB, I used TypeScript, Prisma ORM, and MySQL hosted on AWS RDS. 
