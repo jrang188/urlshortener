@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "API project for freeCodeCamp",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
