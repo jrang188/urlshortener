@@ -4,7 +4,7 @@ import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
-import isValidUrl from "./utils";
+import isValidUrl from "./utils.js";
 
 dotenv.config();
 const app = express();
